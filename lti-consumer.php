@@ -533,6 +533,13 @@ function sb_lti_launch_process($attrs) {
         } else if ( !isset($action) )  {
             $action = 'button';
         }
+        
+        //add the addtional fields we care about here
+        if ( array_key_exists('tool_consumer_instance_guid', $attrs) ) {
+            $parameters['tool_consumer_instance_guid'] = $attrs['tool_consumer_instance_guid'];
+        } else if ( !isset($tool_consumer_instance_guid) ) {
+            return array('error' => 'Missing tool_consumer_instance_guid key.');
+        }
 
         $parameters = sb_package_launch(
                 $version,
